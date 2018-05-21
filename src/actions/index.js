@@ -6,9 +6,8 @@ export const UPDATE_CURRENT_GUESS = 'UPDATE_CURRENT_GUESS';
 
 
 
-export const makeGuess = (userGuess) => ({
-  type: MAKE_GUESS,
-  userGuess  
+export const makeGuess = () => ({
+  type: MAKE_GUESS,    
 });
 
 export const restartGame = () => ({

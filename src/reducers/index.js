@@ -4,21 +4,24 @@ const initialState = {
   guesses: [],
   feedback: 'Make your guess!',
   auralStatus: '',
-  // correctAnswer: Math.round(Math.random() * 100) + 1
-  correctAnswer: 49,
-  currentGuess: 0
+  correctAnswer: Math.round(Math.random() * 100) + 1,
+  // correctAnswer: 49,
+  currentGuess: ''
 };
 
 export const mainReducer = (state=initialState, action) => {
- console.log('current Guess', state.currentGuess, 'the state', state, 'guesses', state.guesses)
 
   if(action.type === MAKE_GUESS){
+
     const difference = Math.abs(state.currentGuess - state.correctAnswer)
 
-    if(typeof state.currentGuess !== 'number'){
-      return {...state, feedback: 'Please enter a valid number'};
+    if(typeof state.currentGuess !== 'number' || state.currentGuess < 1 || state.currentGuess > 100){
+      return {...state, feedback: 'Please enter a valid number (1-100)'};
     }
 
+    if(state.guesses.includes(state.currentGuess)){
+      return {...state, feedback: 'Please enter a new number'};
+    }
     
     let hintCheck = '';
     if (difference >= 50) {
@@ -33,24 +36,24 @@ export const mainReducer = (state=initialState, action) => {
       hintCheck ='CORRECT! You win, click "NEW GAME" to play again!';
     }
 
-    console.log('line 38')
-
     return Object.assign( {},
         state, 
         {guesses: [...state.guesses, state.currentGuess]},
-         {feedback: hintCheck }) 
+        {feedback: hintCheck }) 
+    
+
     }
 
 
-  // if(action.type === RESTART_GAME){
-  //   return Object.assign({},state, {
-  //     guesses: [],
-  //     feedback: 'Make your guess!',
-  //     auralStatus: '',
-  //     correctAnswer: Math.round(Math.random() * 100) + 1
-     
-  //   })
-  // }
+  if(action.type === RESTART_GAME){
+    return Object.assign({},state, {
+      guesses: [],
+      feedback: 'Make your guess!',
+      auralStatus: '',
+      correctAnswer: Math.round(Math.random() * 100) + 1,
+      currentGuess: ''     
+    })
+  }
 
   if(action.type === UPDATE_CURRENT_GUESS){
     return {

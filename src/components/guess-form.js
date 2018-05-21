@@ -10,7 +10,9 @@ export class GuessForm extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.dispatch(makeGuess(event))  
+    this.props.dispatch(makeGuess()) 
+    // console.log('the state: ', this.props.state)
+ 
   }
 
   handleChange(event){
@@ -18,10 +20,11 @@ export class GuessForm extends React.Component {
   }
 
   render() {
+    
     return (
       <form onSubmit={e => this.onSubmit(e)}>
         <input
-          // type="number"
+          type="number"
           name="userGuess"
           id="userGuess"
           className="text"
@@ -29,6 +32,7 @@ export class GuessForm extends React.Component {
           max="100"
           autoComplete="off"
           aria-labelledby="feedback"          
+          placeholder='Enter a number!'
           required
           value={this.props.currentGuess}
           onChange={(e) => this.handleChange(e) }
@@ -48,7 +52,8 @@ export class GuessForm extends React.Component {
 
 const mapStateToProps = state => ({
   // onMakeGuess: guess => props.onMakeGuess(guess)
-  currentGuess: state.currentGuess
+  currentGuess: state.currentGuess,
+  state: state
 })
 
 export default connect(mapStateToProps)(GuessForm);

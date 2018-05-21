@@ -5,7 +5,7 @@ import store from './store';
 
 import { Provider } from 'react-redux';
 
-import { makeGuess, restartGame } from './actions'
+// import { makeGuess, restartGame } from './actions'
 
 import './reset.css';
 import './index.css';
