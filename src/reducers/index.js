@@ -1,15 +1,17 @@
-import { MAKE_GUESS, RESTART_GAME } from '../actions'
+import { MAKE_GUESS, RESTART_GAME, UPDATE_CURRENT_GUESS } from '../actions'
 
 const initialState = {
   guesses: [],
   feedback: 'Make your guess!',
   auralStatus: '',
   // correctAnswer: Math.round(Math.random() * 100) + 1
-  correctAnswer: 49
+  correctAnswer: 49,
+  currentGuess: null
 };
 
 export const mainReducer = (state=initialState, action) => {
-
+  console.log(action.userGuess);
+  
   if(action.type === MAKE_GUESS){
     const difference = Math.abs(action.userGuess - state.correctAnswer)
 
@@ -53,12 +55,12 @@ export const mainReducer = (state=initialState, action) => {
     })
   }
 
-
-
-
-
-
-
+  if(action.type === UPDATE_CURRENT_GUESS){
+    return {
+      ...state,
+      currentGuess: action.currentGuess      
+    }    
+  }
 
 return state;
 }
