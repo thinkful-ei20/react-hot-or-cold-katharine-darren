@@ -10,14 +10,14 @@ import { connect } from 'react-redux';
 export class Game extends React.Component {
 
 
-  restartGame() {
-    this.setState({
-      guesses: [],
-      feedback: 'Make your guess!',
-      auralStatus: '',
-      correctAnswer: Math.floor(Math.random() * 100) + 1
-    });
-  }
+  // restartGame() {
+  //   this.setState({
+  //     guesses: [],
+  //     feedback: 'Make your guess!',
+  //     auralStatus: '',
+  //     correctAnswer: Math.floor(Math.random() * 100) + 1
+  //   });
+  // }
 
   // makeGuess(guess) {
   //   guess = parseInt(guess, 10);
@@ -67,14 +67,13 @@ export class Game extends React.Component {
     }
 
 
-    this.setState({ auralStatus });
+    // this.setState({ auralStatus });
   }
 
   render() {
     const { feedback, guesses, auralStatus } = this.props;
     const guessCount = this.props.guesses.length;
-
-    return (
+     return (
       <div>
         <Header
           onRestartGame={() => this.restartGame()}
@@ -97,7 +96,7 @@ const mapStateToProps = state => ({
   guesses: [],
   feedback: 'Make your guess!',
   auralStatus: '',
-  correctAnswer: Math.round(Math.random() * 100) + 1
+  // correctAnswer: Math.round(Math.random() * 100) + 1
 });
 
 export default connect(mapStateToProps)(Game);

@@ -10,7 +10,7 @@ import { makeGuess, restartGame } from './actions'
 import './reset.css';
 import './index.css';
 
-// console.log(store.getState());
+// og(store.getState());
 // store.dispatch(makeGuess(25));
 // console.log(store.getState());
 

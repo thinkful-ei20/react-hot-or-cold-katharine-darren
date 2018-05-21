@@ -4,33 +4,24 @@ import './guess-form.css';
 
 import { connect } from 'react-redux';
 
-import { makeGuess } from '../actions';
+import { makeGuess, updateCurrentGuess } from '../actions';
 
 export class GuessForm extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-
-    this.props.dispatch(makeGuess(event))
-    console.log(event.target.value);
-    
-    // if (this.props.onMakeGuess) {
-    //   const value = this.input.value;
-    //   this.props.onMakeGuess(value);
-    // }
-    // this.input.value = '';
-    // this.input.focus();
+    this.props.dispatch(makeGuess(event))  
   }
 
   handleChange(event){
-    
+    this.props.dispatch(updateCurrentGuess(event.target.value))
   }
 
   render() {
     return (
       <form onSubmit={e => this.onSubmit(e)}>
         <input
-          type="number"
+          // type="number"
           name="userGuess"
           id="userGuess"
           className="text"
@@ -39,7 +30,7 @@ export class GuessForm extends React.Component {
           autoComplete="off"
           aria-labelledby="feedback"          
           required
-          value={this.props.guess}
+          value={this.props.currentGuess}
           onChange={(e) => this.handleChange(e) }
         />
         <button 
@@ -57,7 +48,7 @@ export class GuessForm extends React.Component {
 
 const mapStateToProps = state => ({
   // onMakeGuess: guess => props.onMakeGuess(guess)
-  guess: state.guesses[state.guesses.length - 1]
+  currentGuess: state.currentGuess
 })
 
 export default connect(mapStateToProps)(GuessForm);

@@ -6,19 +6,20 @@ const initialState = {
   auralStatus: '',
   // correctAnswer: Math.round(Math.random() * 100) + 1
   correctAnswer: 49,
-  currentGuess: null
+  currentGuess: 0
 };
 
 export const mainReducer = (state=initialState, action) => {
-  console.log(action.userGuess);
-  
-  if(action.type === MAKE_GUESS){
-    const difference = Math.abs(action.userGuess - state.correctAnswer)
+ console.log('current Guess', state.currentGuess, 'the state', state, 'guesses', state.guesses)
 
-    if(typeof action.userGuess !== 'number'){
+  if(action.type === MAKE_GUESS){
+    const difference = Math.abs(state.currentGuess - state.correctAnswer)
+
+    if(typeof state.currentGuess !== 'number'){
       return {...state, feedback: 'Please enter a valid number'};
     }
 
+    
     let hintCheck = '';
     if (difference >= 50) {
       hintCheck = 'You\'re Ice Cold...';
@@ -32,33 +33,29 @@ export const mainReducer = (state=initialState, action) => {
       hintCheck ='CORRECT! You win, click "NEW GAME" to play again!';
     }
 
-    // return Object.assign({},state, {
-    //   guesses: [...state.guesses, action.userGuess],
-    //   feedback: hintCheck
-    // })
+    console.log('line 38')
 
-    return {
-      ...state,
-      guesses: [...state.guesses, action.userGuess],
-      feedback: hintCheck
+    return Object.assign( {},
+        state, 
+        {guesses: [...state.guesses, state.currentGuess]},
+         {feedback: hintCheck }) 
     }
 
-  }
 
-  if(action.type === RESTART_GAME){
-    return Object.assign({},state, {
-      guesses: [],
-      feedback: 'Make your guess!',
-      auralStatus: '',
-      correctAnswer: Math.round(Math.random() * 100) + 1
+  // if(action.type === RESTART_GAME){
+  //   return Object.assign({},state, {
+  //     guesses: [],
+  //     feedback: 'Make your guess!',
+  //     auralStatus: '',
+  //     correctAnswer: Math.round(Math.random() * 100) + 1
      
-    })
-  }
+  //   })
+  // }
 
   if(action.type === UPDATE_CURRENT_GUESS){
     return {
       ...state,
-      currentGuess: action.currentGuess      
+      currentGuess: +action.currentGuess      
     }    
   }
 
